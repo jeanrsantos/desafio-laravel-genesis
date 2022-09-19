@@ -23,6 +23,17 @@ Você irá desenvolver uma aplicação simples contendo apenas um caso de uso si
 ## Rodando o projeto
 Caso tenha problemas com a execuçao do docker, rode os comandos como usuario root ou adicione as devidas permissoes ao docker: https://docs.docker.com/engine/install/linux-postinstall/
 
+Configure o arquivo .env
+```bash
+cp .env.example .env
+```
+
+Configure o arquivo docker-compose.yml
+```bash
+cp docker-compose.yml.example docker-compose.yml
+```
+
+Buildar e subir os containers:
 ```bash
 docker-compose up -d --build
 ```
@@ -33,11 +44,6 @@ docker exec -ti desafio-genesis-app composer install
 
 ```bash
 docker exec -ti desafio-genesis-app composer install
-```
-
-Configure o arquivo .env
-```bash
-cp .env.example .env
 ```
 
 Configure a chave do projeto:
@@ -63,6 +69,8 @@ Rode o comando migrate após criar suas migrações, lembre-se, as migrações n
 ```bash
 docker exec -ti desafio-genesis-app php artisan migrate
 ```
+
+Para acessar a aplicaçao, entre em: ```localhost:9003```
 
 ## O que você precisa entregar?
 
