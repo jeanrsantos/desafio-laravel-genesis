@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: gen
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    container_name: desafio-genesis-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    ports:
+      - "9002:9000"
+    networks:
+      - desafio-genesis
+
+  postgres:
+    container_name: desafio-genesis-postgres
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1011101"
+      POSTGRES_DB: postgres
+    volumes:
+      - ./storage/database:/var/lib/postgresql/data
+    ports:
+      - "65432:5432"
+    networks:
+      - desafio-genesis
+
+  nginx:
+    image: nginx:alpine
+    container_name: desafio-genesis-nginx
+    restart: unless-stopped
+    ports:
+      - "9003:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - desafio-genesis
+
+networks:
+  desafio-genesis:
+    driver: bridge
